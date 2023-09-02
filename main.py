@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from keras.models import load_model
+import os
 
 # Carrega o modelo de classificação antes de iniciar a API.
 model = load_model('./model.h5')
@@ -26,4 +27,6 @@ def predict():
   return jsonify(predictions=result_list[0])
 
 # Inicia a aplicação.
+port = int(os.environ.get('PORT', 5000))
+app.run(host='0.0.0.0', port=port)
 app.run()
